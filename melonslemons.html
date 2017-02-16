@@ -1,0 +1,92 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<!-- saved from url=(0044)http://nickm.com/poems/through_the_park.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<style type="text/css">
+/* <![CDATA[ */
+body {
+ background: #000;
+ color: #000;
+ margin: 24pt 24pt 0 24pt;
+ font-family: "Helvetica Neue", Helvetica, Arial, Nimbus Sans, Verdana, sans-serif;
+ font-size: 13pt;
+}
+div {
+ height: 16pt;
+}
+a {
+ color: #117;
+ text-decoration: none;
+}
+/* ]]> */
+</style>
+<script language="JavaScript" type="text/javascript">
+var sentences=[
+"The girl grins and grabs a granola bar",
+"The girl puts on a slutty dress",
+"The girl sets off through the park",
+"A wolf whistle sounds",
+"The girl turns to smile and wink",
+"The muscular man paces the girl",
+"Chatter and compliments cajole",
+"The man makes a fist behind his back",
+"A wildflower nods, tightly gripped",
+"A snatch of song reminds the girl of her grandmother",
+"The man and girl exchange a knowing glance",
+"The two circle",
+"Laughter booms",
+"A giggle weaves through the air",
+"The man's breathing quickens",
+"A lamp above fails to come on",
+"The man dashes, leaving pretense behind",
+"Pigeons scatter",
+"The girl runs",
+"The man's there first",
+"Things are forgotten in carelessness",
+"The girl's bag lies open",
+"Pairs of people relax after journeys and work",
+"The park's green is gray",
+"A patrol car's siren chirps"
+];
+var to_drop = 2 * sentences.length / 3;
+var n = 0;
+var area = document.getElementsByTagName('textarea')[0]
+var text = ""
+function rand_range(max) {
+ return Math.floor(Math.random()*(max+1));
+}
+function drop(array) {
+ var to_remove = rand_range(array.length-1);
+ while (array[to_remove].length == 0) {
+  to_remove = rand_range(array.length-1);
+ }
+ array[to_remove] = '';
+ return array;
+}
+function story() {
+ var main=document.getElementById('main');
+ for (n=0; n<to_drop; n++) {
+  sentences = drop(sentences);
+ }
+ for (n=0; n<sentences.length; n++) {
+  if (sentences[n].length > 0) {
+   text += sentences[n] + ". ... "
+   }
+  }
+ last=document.createElement('div');
+ last.appendChild(document.createTextNode(text));
+ main.appendChild(last);
+}
+</script>
+  <title>Through the Park</title>
+</head>
+<body onload="story();">
+<div style="float:right; color:#711; width:250px; font-style:italic">
+<p>Text &amp; Code: <a href="http://nickm.com/">Nick Montfort</a></p>
+<p>This page, using a very simple bit of JavaScript, generates different stories by omitting different sentences from a prepared list at random each time. <a href="http://nickm.com/poems/through_the_park.html">Reload</a> for a different story. This process was implemented first in Python: <a href="http://nickm.com/poems/through_the_park.py">through_the_park.py</a></p>
+<p><a href="http://nickm.com/poems/por_el_parque.html">Español</a> · <a href="http://nickm.com/poems/przez_park.html">Polski</a> · <a href="http://nickm.com/poems/cherez_park.html">Русский</a></p></div>
+<div style="height:60pt; font-size:26pt">Through the Park</div>
+<div id="main" style="font-weight:bold; width:50%"><div>The girl turns to smile and wink. ... A snatch of song reminds the girl of her grandmother. ... The two circle. ... Laughter booms. ... The man dashes, leaving pretense behind. ... Things are forgotten in carelessness. ... The girl's bag lies open. ... Pairs of people relax after journeys and work. ... </div></div>
+
+
+</body></html>
