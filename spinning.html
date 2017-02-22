@@ -1,0 +1,94 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<!-- saved from url=(0044)http://nickm.com/poems/through_the_park.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<style type="text/css">
+/* <![CDATA[ */
+body {
+ background: white;
+ color: white;
+ margin: 24pt 24pt 0 24pt;
+ font-family: Trebuchet, Consolas, Helvetica, Arial, Nimbus Sans, Verdana, sans-serif;
+ font-size: 20pt;
+}
+div {
+ height: 16pt;
+}
+a {
+ color:grey;
+ text-decoration: none;
+}
+/* ]]> */
+</style>
+<script language="JavaScript" type="text/javascript">
+var sentences=["Sunset colors the sky.",
+"A train's horn blows in the distance",
+ "A bike's bell dings next door",
+ "A car screeches on the driveway",
+ "I know that she is coming round",
+ "I want to prepare a welcome",
+ "Where will she take me next?" ,
+ "The sound of her wheels turning",
+ "They churn and churn in my head",
+ "I try to focus",
+ "If only he came too.",
+ "The train roars through",
+ "How did it come to this?",
+ "We can see the effort",
+ "Who let that train get out of control?",
+ "It's gone for now.",
+ "But I know she'll be back again.",
+ "The familiar smoke and the warmth of home.",
+ "Please stop this train.",
+ "Are you here?",
+ "Darkness follows.",
+ "Does the train sleep?" ]
+
+var to_drop = sentences.length - 7;
+var n = 0;
+var area = document.getElementsByTagName('textarea')[0]
+var text = ""
+function rand_range(max) {
+ return Math.floor(Math.random()*(max+1));
+}
+function drop(array) {
+ var to_remove = rand_range(array.length-1);
+ while (array[to_remove].length == 0) {
+  to_remove = rand_range(array.length-1);
+ }
+ array[to_remove] = '';
+ return array;
+}
+function story() {
+	colors = ["#800000","#008040","#008080", '#3366cc', "#800040"]
+	 var bg_index = rand_range(colors.length-1);
+	document.body.style.backgroundColor = colors[bg_index];
+ var main=document.getElementById('main');
+ for (n=0; n<to_drop; n++) {
+  sentences = drop(sentences);
+ }
+
+ last=document.createElement('div');
+ text_array = []
+ for (n=0; n<sentences.length; n++) {
+  if (sentences[n].length > 0) {
+   text = sentences[n] + " ... ";
+   last.appendChild(document.createTextNode(text));
+   last.appendChild(document.createElement('br'));
+   }
+  }
+ main.appendChild(last);
+}
+</script>
+  <title>Forward Motion</title>
+</head>
+<body onload="story();">
+<div style="float:right; color:lightgrey; width:250px; font-style:italic">
+<p>Text &amp; code adapted by Tina Quach from <a href="nickm.com/poems/through_the_park.html">Nick Montfort's Through the Park</a></p>
+<p>This page, using a very simple bit of JavaScript, generates different stories by omitting different sentences from a prepared list at random each time. <a href="http://web.mit.edu/~quacht/www/word-made-digital/spinning.html">Reload</a> for a different story.</p>
+</div>
+
+<div id="main" style="font-weight:bold; width:50%"><div></div></div>
+
+
+</body></html>
