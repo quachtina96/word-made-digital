@@ -8,3 +8,7 @@
 body {
 	font-family: Consolas, monospace;
 }
+
+a {
+	font-weight: bold;
+}

@@ -1,7 +1,11 @@
-import textmining
 import re
+import sys
 
 bullet = '\u2022'
+determiners = ["the", "a", "an", "another"]
+coordinating_conjunctions = ["for", "nor", "but", "or", "yet", "so"]
+prepositions = ["in", "under", "towards", "before"]
+
 
 def filter_sentence(sentence, exclude_list):
 	excluded = set(exclude_list)
@@ -48,12 +52,16 @@ def bulleted(string):
 	return "%s %s" %(bullet, string)
 
 if __name__ == "__main__":
-	filename = 'mit_news_2.txt'
+    if len(sys.argv) < 1:
+        print("You must call program as: python3 bulletpoint.py <datafile>")
+        print("This program returns the summarized, bullet-pointed version of the text found in datafile.")
+        sys.exit(1)
+    filename = sys.argv[1]
 
 	exclude_list = ['has']
-	exclude_list.extend(textmining.determiners)
-	exclude_list.extend(textmining.coordinating_conjunctions)
-	exclude_list.extend(textmining.prepositions)
+	exclude_list.extend(determiners)
+	exclude_list.extend(coordinating_conjunctions)
+	exclude_list.extend(prepositions)
 
 	f = open(filename, 'r')
 	content = f.read()
