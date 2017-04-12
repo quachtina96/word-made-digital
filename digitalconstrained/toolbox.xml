@@ -1,0 +1,24 @@
+<xml xmlns="http://www.w3.org/1999/xhtml" id="toolbox" style="display: none;">
+  <category name="People">
+    <block type="phil"></block>
+    <block type="sarah"></block>
+  </category>
+  <category name="Speech">
+    <block type="suffix_fixed"></block>
+    <block type="it_started_with"></block>
+    <block type="prefix">
+      <field name="NAME">default</field>
+    </block>
+    <block type="a_tool"></block>
+    <block type="suffix">
+      <field name="NAME">default</field>
+    </block>
+    <block type="stuck"></block>
+    <block type="suffix_mixed">
+      <field name="noun">girl</field>
+    </block>
+    <block type="mixx">
+      <field name="NAME">stupid sweater</field>
+    </block>
+  </category>
+</xml>

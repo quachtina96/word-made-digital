@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+  <meta charset="utf-8">
+  <title>Constrained Writing with Blocks</title>
+  <script src="blockly_compressed.js"></script>
+  <script src="final_block_defs.js"></script>
+  <script src="en.js"></script>
+  <link rel="stylesheet" href="style.css">
+  <table>
+    <tr>
+      <td>
+        <h1>
+        <aside>
+          <div id="textArea">
+            <p> Fill in the blanks with blocks from the toolbox!</p>
+            <p> Just drag and drop!</p> <br>
+          </div>
+        </aside>
+
+        <section id="blocklyDiv"> </section>
+    </td>
+  </tr>
+</table>
+
+<xml xmlns="http://www.w3.org/1999/xhtml" id="toolbox" style="display: none;">
+  <category name="People">
+    <block type="phil"></block>
+    <block type="sarah"></block>
+  </category>
+  <category name="Speech">
+    <block type="suffix_fixed"></block>
+    <block type="it_started_with"></block>
+    <block type="prefix">
+      <field name="NAME">default</field>
+    </block>
+    <block type="a_tool"></block>
+    <block type="suffix">
+      <field name="NAME">default</field>
+    </block>
+    <block type="stuck"></block>
+    <block type="suffix_mixed">
+      <field name="noun">girl</field>
+    </block>
+    <block type="mixx">
+      <field name="NAME">stupid sweater</field>
+    </block>
+  </category>
+</xml>
+
+<xml xmlns="http://www.w3.org/1999/xhtml" id="workspaceBlocks" style="display:none">
+  <block type="title" id="16RlTNlp@CPL9scmrnpV" x="38" y="38"></block>
+  <block type="start_says" id="$~;{gIU.SQO-])zKF}uH" x="38" y="88">
+    <next>
+      <block type="says" id="W+4-8nQzXni?n|SGQXKc">
+        <next>
+          <block type="says" id="];*mAvAU(7AS4r/s^ofO">
+            <next>
+              <block type="says" id=":gkY[ti?D+x~Nj~wS*!;">
+                <next>
+                  <block type="says" id="z1.z~m#fvmZXjo5ArmPh">
+                    <next>
+                      <block type="says" id="T4y,c`JNfqGzF/F}NDY%">
+                        <next>
+                          <block type="end_says" id="h7oc=ZppVF/,HL)p#(9-"></block>
+                        </next>
+                      </block>
+                    </next>
+                  </block>
+                </next>
+              </block>
+            </next>
+          </block>
+        </next>
+      </block>
+    </next>
+  </block>
+</xml>
+
+  <script src="final_workspace.js"></script>
+</html>
