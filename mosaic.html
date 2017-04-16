@@ -1,0 +1,38 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>Mosaic</title>
+  <meta name="description" content="The HTML5 Herald">
+  <meta name="author" content="SitePoint">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="mosaic.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+  <script type="text/javascript" src="mosaic.js"></script>
+</head>
+
+<body>
+	<h1>Mosaic</h1>
+	<h2>by Tina Quach for <a href="http://nickm.com/classes/the_word_made_digital/2017_spring/">CMS.609 Word Made Digital</a></h2>
+	<br>
+	Exploring Oulipian combinatorial writing and textual transformations through an iterative visual.
+	<br><br>
+
+	<textarea rows="10" cols="150" id="inputArea">Paste your input text here or click the buttons below to fill with our sample text.
+	</textarea> <br>
+	<button type="button" onclick="insertText('poem', 'inputArea')">Use Sample Poem</button> <br>
+	<button type="button" onclick="insertText('news', 'inputArea')">Use MIT News article</button> <br><br>
+	<button type="button" onclick="mosaic('mosaicDiv', 'inputArea')"> Let's Begin! </button>
+	<br><br>
+	<div id="mosaicDiv"> 
+	</div>
+
+	<br>
+	<br>
+	<br>
+	For more see <a href="index.html">Tina's Word Made Digital portfolio</a>
+</body>
+
+</html>

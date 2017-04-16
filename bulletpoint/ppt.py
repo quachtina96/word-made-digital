@@ -2,7 +2,6 @@
 import re
 import sys
 import nltk
-import sys  
 import random
 from pptx import Presentation
 
