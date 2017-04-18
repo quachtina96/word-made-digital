@@ -73,3 +73,5 @@ var reset = function(inputDiv, mosaicDiv) {
 	document.getElementById(inputDiv).style.display = "block";
 	document.getElementById(mosaicDiv).style.display = "none";
 }
+
+
