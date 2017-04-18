@@ -1,0 +1,68 @@
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+.descriptor {
+  font: monospace;
+}
+body {
+  background-color: #fff;
+  font-family: sans-serif;
+  overflow: hidden;
+}
+
+h1 {
+  font: normal 120% sans-serif;
+}
+
+section {
+  float: left;
+  width: 70%;
+}
+
+aside {
+  float: right;
+}
+
+button {
+  border-radius: 4px;
+  border: 1px solid #ddd;
+  background-color: #cce6ff;
+  color: #000;
+  padding: 10px;
+  margin: 0 5px;
+  font-size: large;
+}
+
+button:hover:not(:disabled) {
+  box-shadow: 2px 2px 5px #888;
+}
+
+button:disabled {
+  opacity: .6;
+}
+
+button>* {
+  opacity: .6;
+  vertical-align: text-bottom;
+}
+
+button:hover:not(:disabled)>* {
+  opacity: 1;
+}
+
+.demo-button {
+  background-color: #e6f2ff;
+  font-size: small;
+  border-radius: 3px;
+}
+
+#blocklyDiv {
+  height: 480px;
+  width: 700px;
+}
+
+#toolbox, #filterDemo {
+  display: none;
+}
