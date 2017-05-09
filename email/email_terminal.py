@@ -1,9 +1,25 @@
 #!/usr/bin/python
+
+"""
+email_terminal.py is a script written by Tina Quach (quachtina96@gmail.com). It 
+is meant to be game that reflects the email experiences of  the typical MIT 
+undergraduate living in East Campus. Given that the script prompts for your email
+information, and pulls real emails out of your inbox for the purpose of the game
+interaction, it is ideal if you are an undergraduate MIT student living in East 
+Campus. No guarantees if you aren't.
+
+At the same time, you should feel free to download a local version of the code 
+and tinker with it! 
+"""
 import email, getpass, imaplib, os
 from cmd import Cmd
 import random
 from collections import defaultdict
 import time
+
+type_to_filter_dict = {'EC':  '(TO "ec-discuss@mit.edu")',
+     'Piazza': '(FROM "no-reply@piazza.com>")',
+      "Jobs":   '(TO "eecs-jobs-announce@csail.mit.edu")'}
 
 class Email():
     def __init__(self, header, content, email_type):
@@ -53,10 +69,57 @@ class EmailClient():
             rand_email = random.choice(self.get_emails())
         return rand_email
 
+    def populate_basic_map(self, num_emails):
+        if not test:
+            self.user = raw_input("your email (without the @gmail.com): ")
+            #pwd = raw_input("password: ")
+            pwd=getpass.getpass()
+        else:
+            self.user = 'quachtina96'
+            pwd = '0mgGoogle!'
+
+        print('Loading...')
+        
+        # of emails to fetch per category.
+        fetch = num_emails
+
+        # connecting to the gmail imap server
+        m = imaplib.IMAP4_SSL("imap.gmail.com")
+        m.login(self.user+str("@gmail.com"),pwd)
+        m.select("INBOX") # here you a can choose a mail box like INBOX instead
+        # use m.list() to get all the mailboxes
+        
+        email_list = []
+
+        date = (datetime.date.today() - datetime.timedelta(3)).strftime("%d-%b-%Y")
+        result, data = m.uid('search', None, '(SENTSINCE {date})'.format(date=date))
+        items = data[0].split()
+
+        if (int(fetch)>0):
+            sublist=items[-1*(min(int(fetch), len(items))):]
+        else:
+            sublist=items
+
+        for emailid in sublist:
+            resp, data = m.uid('fetch', emailid, "(RFC822)") # fetching the mail, "`(RFC822)`" means "get the whole stuff", but you can ask for headers only, etc
+            email_body = data[0][1] # getting the mail content
+            mail = email.message_from_string(email_body) # parsing the mail content to get a mail object
+
+            header =  "["+mail["From"]+"] : Re:" + mail["Subject"]
+            
+            # we use walk to create a generator so we can iterate on the parts and forget about the recursive headache
+            content = []
+            for part in mail.walk():
+                if part.get_content_type() == 'text/plain':
+                    body = part.get_payload(decode=True)
+                    content.append(body)
+                else:
+                    continue
+            email_obj = Email(header, '\n'.join(content), 'any')
+            email_list.append(email_obj)
+        self.add_to_map(email_list)
+
     def populate_map(self, type_to_filter_dict, num_emails_per_filter):
-        
-        detach_dir = './ec-discuss'   #directory where to save attachments (default: current)
-        
         self.user = raw_input("your email (without the @gmail.com): ")
         #pwd = raw_input("password: ")
         pwd=getpass.getpass()
@@ -74,35 +137,41 @@ class EmailClient():
         # use m.list() to get all the mailboxes
         
         for email_type, email_filter in type_to_filter_dict.items():
-            email_list = []
-            resp, items = m.search(None, email_filter) # you could filter using the IMAP rules here (check http://www.example-code.com/csharp/imap-search-critera.asp)
-            items = items[0].split() # getting the mails id
-
-            f=open(filename,'w')
-
-            if (int(fetch)>0):
-                sublist=items[-1*(min(int(fetch), len(items))):]
-            else:
-                sublist=items
-
-            for emailid in sublist:
-                resp, data = m.fetch(emailid, "(RFC822)") # fetching the mail, "`(RFC822)`" means "get the whole stuff", but you can ask for headers only, etc
-                email_body = data[0][1] # getting the mail content
-                mail = email.message_from_string(email_body) # parsing the mail content to get a mail object
-
-                header =  "["+mail["From"]+"] : Re:" + mail["Subject"]
+            print email_type
+            try:
+                email_list = []
                 
-                # we use walk to create a generator so we can iterate on the parts and forget about the recursive headache
-                content = []
-                for part in mail.walk():
-                    if part.get_content_type() == 'text/plain':
-                        body = part.get_payload(decode=True)
-                        content.append(body)
-                    else:
-                        continue
-                email_obj = Email(header, '\n'.join(content), email_type)
-                email_list.append(email_obj)
-            self.add_to_map(email_list)
+
+                resp, items = m.search(None, email_filter) # you could filter using the IMAP rules here (check http://www.example-code.com/csharp/imap-search-critera.asp)
+                items = items[0].split() # getting the mails id
+
+                f=open(filename,'w')
+
+                if (int(fetch)>0):
+                    sublist=items[-1*(min(int(fetch), len(items))):]
+                else:
+                    sublist=items
+
+                for emailid in sublist:
+                    resp, data = m.fetch(emailid, "(RFC822)") # fetching the mail, "`(RFC822)`" means "get the whole stuff", but you can ask for headers only, etc
+                    email_body = data[0][1] # getting the mail content
+                    mail = email.message_from_string(email_body) # parsing the mail content to get a mail object
+
+                    header =  "["+mail["From"]+"] : Re:" + mail["Subject"]
+                    
+                    # we use walk to create a generator so we can iterate on the parts and forget about the recursive headache
+                    content = []
+                    for part in mail.walk():
+                        if part.get_content_type() == 'text/plain':
+                            body = part.get_payload(decode=True)
+                            content.append(body)
+                        else:
+                            continue
+                    email_obj = Email(header.decode('utf-8').strip(), '\n'.join(content).decode('utf-8').strip(), email_type)
+                    email_list.append(email_obj)
+                self.add_to_map(email_list)
+            except:
+                print('FAILED')
 
     def preview_email(self, email):
         OKBLUE = '\033[94m'
@@ -237,10 +306,6 @@ def intro(jay):
     time.sleep(2)
 
 if __name__ == '__main__':
-    type_to_filter_dict = {'EC':  '(TO "ec-discuss@mit.edu")',
-     'Piazza': '(FROM "no-reply@piazza.com>")',
-      "Jobs":   '(TO "eecs-jobs-announce@csail.mit.edu")'}
-
     jay = Jay()
     intro(jay)
     ec = EmailClient()
