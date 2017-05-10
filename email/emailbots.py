@@ -325,9 +325,9 @@ class EmailBotsGame(Cmd, object):
     
     def do_visit(self, args):
         """Visit your emailbots"""
-        if ' '.join(args).find('keepbot'):
+        if ' '.join(args).find('keepbot') != -1:
             botname = 'keepbot'
-        elif ' '.join(args).find('deletebot'):
+        elif ' '.join(args).find('deletebot') != -1:
             botname = 'deletebot'
         else:
             self.jay.speak("Which bot do you want to visit? keepbot or deletebot?")
