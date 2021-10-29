@@ -75,8 +75,8 @@ class EmailClient():
             #pwd = raw_input("password: ")
             pwd=getpass.getpass()
         else:
-            self.user = 'quachtina96'
-            pwd = '0mgGoogle!'
+            self.user = ''
+            pwd = ''
 
         print('Loading...')
         
